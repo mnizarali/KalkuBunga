@@ -14,18 +14,19 @@
         <div class="calculator">
             <div class="heading">
                 <h3>Kalkulator Bunga Majemuk</h3>
+                <h4>Future Value</h4>
             </div>
             <form class="compound-form">
                 <div class="input-group">
                     <label for="initialamount">Banyaknya</label>
-                    <input type="number" id="initialamount" />
+                    <input type="number" id="initialamount"/>
                 </div>
                 <div class="input-group">
                     <label for="years">Periode</label>
                     <input type="number" id="years" />
                 </div>
                 <div class="input-group">
-                    <label for="rates">Suku Bunga(%)</label>
+                    <label for="rates">Suku Bunga(%) Per Tahun</label>
                     <input type="number" id="rates" />
                 </div>
                 <div class="input-group">
@@ -41,10 +42,14 @@
                 </div>
             </form>
             <script>
-            function visitPage(){
-                window.location='index.html';
-            }</script>
-            <button onclick="visitPage();">Back</button>
+                function visitPage(){
+                    window.location='index.html';
+                }</script>
+    
+                <div class="input-group-back">
+                    <button onclick="visitPage();">Back</button>
+                </div>
+            </div>
         </div>
         <div class="results">
             <h3 id="message"></h3>
