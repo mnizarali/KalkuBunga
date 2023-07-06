@@ -927,6 +927,14 @@ Banner Style
   box-shadow: 2px 2px 4px #000000;
 }
 
+.main-banner .left-content .white-button a:hover {
+  background-color: #fff;
+  color: #AA4344 !important;
+  border: solid #AA4344 3px;
+  text-shadow: 2px 2px #cec8c8;
+
+}
+
 /*
 ---------------------------------------------
 PopUp
