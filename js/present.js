@@ -35,7 +35,7 @@ function calculateGrowth(e) {
         for(let i = 1; i <= period; i++) {
             const final = initial / Math.pow(1 + ((interest / 100) / comp), comp * i);
             data.push(toDecimal(final, 2)); //memasukan ke array kosong
-            labels.push("Tahun " + i); 
+            labels.push("Uang tahun ke - " + i); 
             growth =  new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" }).format(final); //,2 dua angka dibelakang koma desima
         }
         //
