@@ -1,57 +1,69 @@
-// Get DOM elements
-const form = document.querySelector('.compound-form');
-const calculateButton = form.querySelector('button');
-const message = document.getElementById('message');
-const canvas = document.getElementById('data-set');
+const context = document.getElementById("data-set").getContext("2d");
+let line = new Chart(context, {}); //membuat objek chart atau diagram
 
-// Calculate the present value
-function calculatePresentValue(event) {
-  event.preventDefault();
+//Value dari form itu
+const intialAmount = document.getElementById("initialamount");
+const years = document.getElementById("years");
+const rates = document.getElementById("rates");
+const compound = document.getElementById("compound");
 
-  // Get input values
-  const initialAmount = parseFloat(form.querySelector('#initialamount').value);
-  const years = parseFloat(form.querySelector('#years').value);
-  const interestRate = parseFloat(form.querySelector('#rates').value);
-  const compoundFrequency = parseInt(form.querySelector('#compound').value);
+//Pesan
+const message = document.getElementById("message");
 
-  // Calculate present value using the formula
-  const presentValue = initialAmount / Math.pow(1 + (interestRate / (compoundFrequency * 100)), years * compoundFrequency);
+//Tombol kalkulasi
+const button = document.querySelector(".input-group button");
 
-  // Display the present value
-  message.textContent = `Present Value: ${presentValue.toFixed(2)}`;
+//Attach an event listener
+button.addEventListener("click", calculateGrowth);
 
-  // Clear any previous chart
-  if (Chart.instances.length > 0) {
-    Chart.instances.forEach((chart) => chart.destroy());
-  }
+//array kosong untuk diisi dibawah
+const data = [];
+const labels = [];
 
-  // Display a chart showing the growth over time
-  const data = {
-    labels: Array.from({ length: years }, (_, index) => index + 1),
-    datasets: [
-      {
-        label: 'Present Value',
-        data: Array.from({ length: years }, (_, index) => presentValue),
-        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-        borderColor: 'rgba(75, 192, 192, 1)',
-        borderWidth: 1,
-      },
-    ],
-  };
+function calculateGrowth(e) {
+    e.preventDefault(); //reset ke default agar bebas mengatur variable (e)
+    data.length = 0;
+    labels.length = 0;
+    let growth = 0;
 
-  new Chart(canvas, {
-    type: 'line',
-    data: data,
-    options: {
-      responsive: true,
-      scales: {
-        y: {
-          beginAtZero: true,
-        },
-      },
-    },
-  });
+    try {
+        const initial = parseInt(intialAmount.value);
+        const period = parseInt(years.value);
+        const interest = parseInt(rates.value);
+        const comp = parseInt(compound.value);
+
+        for(let i = 1; i <= period; i++) {
+            const final = initial / Math.pow(1 + ((interest / 100) / comp), comp * i);
+            data.push(toDecimal(final, 2)); //memasukan ke array kosong
+            labels.push("Tahun " + i); 
+            growth =  new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" }).format(final); //,2 dua angka dibelakang koma desima
+        }
+        //
+        message.innerText = `Present Value : ${growth}`;
+        drawGraph();
+    } catch (error) {
+        console.error(error);
+    }
 }
 
-// Add event listener to the Calculate button
-calculateButton.addEventListener('click', calculatePresentValue);
+function drawGraph() {
+    line.destroy();
+    line = new Chart(context, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: "Perkembangan",
+                data: data.reverse(),
+                fill: true,
+                backgroundColor: "rgba(109, 47, 255)",
+                borderWidth: 3
+            }]
+        }
+    });
+}
+
+
+function toDecimal(value, decimals) {
+    return +value.toFixed(decimals);
+}
