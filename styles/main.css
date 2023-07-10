@@ -82,3 +82,28 @@
   align-items: center;
   flex-direction: column;
 }
+
+
+@media(max-width: 767px){
+  .container {
+    flex-direction: column;
+  }
+
+  .calculator {
+    width: 100%;
+  }
+
+  .input-group-back button {
+    width: 100%;
+  }
+
+  .results {
+    width: 100%;
+  }
+
+  .input-group input,
+  .input-group button,
+  .input-group select {
+    width: 100%;
+  }
+}
