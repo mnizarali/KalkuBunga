@@ -87,6 +87,7 @@
 @media(max-width: 767px){
   .container {
     flex-direction: column;
+    text-align: center;
   }
 
   .calculator {
@@ -99,11 +100,16 @@
 
   .results {
     width: 100%;
+    margin: 20px 0 0 0;
   }
 
   .input-group input,
   .input-group button,
   .input-group select {
     width: 100%;
+  }
+
+  .input-group-back button {
+    border-radius: 0px;
   }
 }

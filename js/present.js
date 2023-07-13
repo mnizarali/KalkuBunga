@@ -34,9 +34,10 @@ function calculateGrowth(e) {
 
         for(let i = 1; i <= period; i++) {
             const final = initial / Math.pow(1 + ((interest / 100) / comp), comp * i);
-            data.push(toDecimal(final, 2)); //memasukan ke array kosong
+            const hasil = final + (final * (interest / 100));
+            data.push(toDecimal(hasil, 2)); //memasukan ke array kosong
             labels.push("Uang tahun ke - " + i); 
-            growth =  new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" }).format(final); //,2 dua angka dibelakang koma desima
+            growth =  new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" }).format(hasil); //,2 dua angka dibelakang koma desima
         }
         //
         message.innerText = `Present Value : ${growth}`;
