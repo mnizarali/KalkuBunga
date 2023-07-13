@@ -37,7 +37,8 @@ function calculateGrowth(e) {
             const hasil = final + (final * (interest / 100));
             data.push(toDecimal(hasil, 2)); //memasukan ke array kosong
             labels.push("Uang tahun ke - " + i); 
-            growth =  new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" }).format(hasil); //,2 dua angka dibelakang koma desima
+            console.log(final);
+            growth =  new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" }).format(final); //,2 dua angka dibelakang koma desima
         }
         //
         message.innerText = `Present Value : ${growth}`;
